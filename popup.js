@@ -1,15 +1,15 @@
 function changeText(words) {
     //replace all spaces with commas
-    for (var i = 1; i != words.length; i++) {
-        if (words[i] == " " && words[i - 1] != ",") {
+    for (var i = 0; i <= words.length; i++) {
+        if (words[i] == " ") {
             var newWords = words.replace(/\s/g, ",");
             break;
         }
     }
     //in case commas are placed next to each other
-    var unique = newWords.charAt(0);
-    for (var j = 1; j != newWords.length; j++) {
-        if (newWords[j] == "," && newWords[j - 1] == ",") {
+    var unique = "";
+    for (var j = 0; j <= newWords.length - 1; j++) {
+        if (newWords[j] == "," && newWords[j + 1] == ",") {
             ;
         }
         else {
@@ -19,27 +19,31 @@ function changeText(words) {
 
     //replace all numbers
     var withNoDigits = unique.replace(/[0-9]/g, '');
-    var final = withNoDigits.charAt(0);
-    for (var j = 1; j != withNoDigits.length; j++) {
-        if (withNoDigits[j] == "," && withNoDigits[j - 1] == ",") {
-            ;
-        }
-        else {
-            final += withNoDigits[j];
-        }
-    }
+    
     //in case the number was something like 2K
-    var newfinal = final.charAt(1);
-    for (var k = 1; k != final.length - 1; k++) {
-        if (final[k] == "," && final[k + 1] == 'K' && final[k + 2] == ",") {
+    var newfinal = "";
+    for (var k = 0; k <= withNoDigits.length - 1; k++) {
+        if (withNoDigits[k] == "," && (withNoDigits[k + 2] == ',' || withNoDigits.endsWith(",k") || withNoDigits.endsWith(',K')) && (withNoDigits[k+1] == 'K' || withNoDigits[k+1] == 'k')) {
             k++;
         }
         else {
-            newfinal += final[k];
+            newfinal += withNoDigits[k];
         }
     }
 
     document.getElementById("myWords").value = newfinal;
+
+    //window.localStorage.setItem("Saved", newfinal);
+    //var myDiv = document.getElementById("Button2");
+    //var button = document.createElement("NewButton");
+    //var text = document.createTextNode("Get Last Sentence");
+    //button.appendChild(text);
+    //myDiv.appendChild(button);
+}
+
+function getPreviousList() {
+    var x = window.localStorage.getItem("Saved");
+    console.log(x);
 }
 
 document.getElementById("clickit").addEventListener('click', function () { changeText(document.getElementById("myWords").value); });
