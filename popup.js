@@ -33,31 +33,8 @@ function changeText(words) {
 
     document.getElementById("myWords").value = newfinal;
 
-    //window.localStorage.setItem("Saved", newfinal);
-    //var myDiv = document.getElementById("Button2");
-    //var button = document.createElement("NewButton");
-    //var text = document.createTextNode("Get Last Sentence");
-    //button.appendChild(text);
-    //myDiv.appendChild(button);
-}
-
-function getPreviousList() {
-    var x = window.localStorage.getItem("Saved");
-    console.log(x);
 }
 
 document.getElementById("clickit").addEventListener('click', function () { changeText(document.getElementById("myWords").value); });
 
 
-//replace spaces with commas
-function addComma(list) {
-    var newWords = document.getElementById("myWords").value.trim();
-    var result = newWords + ",";
-    document.getElementById("myWords").value = result;
-}
-
-document.body.onkeyup = function (e) {
-    if (e.keyCode == 32) {
-        addComma(document.getElementById("myWords").value);
-    }
-}
